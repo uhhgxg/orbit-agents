@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
-import type { RpcServer } from '@craft-agent/server-core/transport'
+import type { RpcServer } from '@orbit-agents/server-core/transport'
 import type { HandlerDeps } from '../handler-deps'
 
 const registeredChannels: string[] = []
@@ -107,24 +107,24 @@ async function getExpectedCoreChannels(): Promise<Set<string>> {
     resources,
     transfer,
   ] = await Promise.all([
-    import('@craft-agent/server-core/handlers/rpc/auth'),
-    import('@craft-agent/server-core/handlers/rpc/automations'),
-    import('@craft-agent/server-core/handlers/rpc/files'),
-    import('@craft-agent/server-core/handlers/rpc/labels'),
-    import('@craft-agent/server-core/handlers/rpc/llm-connections'),
-    import('@craft-agent/server-core/handlers/rpc/oauth'),
-    import('@craft-agent/server-core/handlers/rpc/projects'),
-    import('@craft-agent/server-core/handlers/rpc/sessions'),
-    import('@craft-agent/server-core/handlers/rpc/settings'),
-    import('@craft-agent/server-core/handlers/rpc/skills'),
-    import('@craft-agent/server-core/handlers/rpc/sources'),
-    import('@craft-agent/server-core/handlers/rpc/statuses'),
-    import('@craft-agent/server-core/handlers/rpc/system'),
-    import('@craft-agent/server-core/handlers/rpc/tasks'),
-    import('@craft-agent/server-core/handlers/rpc/workspace'),
-    import('@craft-agent/server-core/handlers/rpc/onboarding'),
-    import('@craft-agent/server-core/handlers/rpc/resources'),
-    import('@craft-agent/server-core/handlers/rpc/transfer'),
+    import('@orbit-agents/server-core/handlers/rpc/auth'),
+    import('@orbit-agents/server-core/handlers/rpc/automations'),
+    import('@orbit-agents/server-core/handlers/rpc/files'),
+    import('@orbit-agents/server-core/handlers/rpc/labels'),
+    import('@orbit-agents/server-core/handlers/rpc/llm-connections'),
+    import('@orbit-agents/server-core/handlers/rpc/oauth'),
+    import('@orbit-agents/server-core/handlers/rpc/projects'),
+    import('@orbit-agents/server-core/handlers/rpc/sessions'),
+    import('@orbit-agents/server-core/handlers/rpc/settings'),
+    import('@orbit-agents/server-core/handlers/rpc/skills'),
+    import('@orbit-agents/server-core/handlers/rpc/sources'),
+    import('@orbit-agents/server-core/handlers/rpc/statuses'),
+    import('@orbit-agents/server-core/handlers/rpc/system'),
+    import('@orbit-agents/server-core/handlers/rpc/tasks'),
+    import('@orbit-agents/server-core/handlers/rpc/workspace'),
+    import('@orbit-agents/server-core/handlers/rpc/onboarding'),
+    import('@orbit-agents/server-core/handlers/rpc/resources'),
+    import('@orbit-agents/server-core/handlers/rpc/transfer'),
   ])
 
   return new Set([

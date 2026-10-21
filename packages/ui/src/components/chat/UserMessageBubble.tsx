@@ -13,8 +13,8 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { Clock } from 'lucide-react'
-import type { StoredAttachment, ContentBadge } from '@craft-agent/core'
-import { normalizePath } from '@craft-agent/core/utils'
+import type { StoredAttachment, ContentBadge } from '@orbit-agents/core'
+import { normalizePath } from '@orbit-agents/core/utils'
 import { cn } from '../../lib/utils'
 import { Markdown } from '../markdown'
 import { FileTypeIcon, getFileTypeLabel } from './attachment-helpers'

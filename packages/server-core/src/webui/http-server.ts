@@ -20,7 +20,7 @@ import {
   buildSessionCookie,
   buildLogoutCookie,
 } from './auth'
-import { generateCallbackPage } from '@craft-agent/shared/auth'
+import { generateCallbackPage } from '@orbit-agents/shared/auth'
 import type { PlatformServices } from '../runtime/platform'
 
 // ---------------------------------------------------------------------------
@@ -362,7 +362,7 @@ export function createWebuiHandler(options: WebuiHandlerOptions): WebuiHandler {
       if (!configSession) {
         return Response.json({ error: 'Unauthorized' }, { status: 401 })
       }
-      const { getActiveWorkspace } = await import('@craft-agent/shared/config/storage')
+      const { getActiveWorkspace } = await import('@orbit-agents/shared/config/storage')
       const active = getActiveWorkspace()
       return Response.json({
         defaultWorkspaceId: active?.id ?? null,

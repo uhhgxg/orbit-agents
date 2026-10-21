@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import { Button } from "@/components/ui/button"
-import { Spinner } from "@craft-agent/ui"
+import { Spinner } from "@orbit-agents/ui"
 import { CraftAgentsSymbol } from "@/components/icons/CraftAgentsSymbol"
 import { StepFormLayout } from "./primitives"
 

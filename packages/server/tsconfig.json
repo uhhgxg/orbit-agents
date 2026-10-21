@@ -19,12 +19,12 @@
     "noUnusedParameters": false,
     "baseUrl": ".",
     "paths": {
-      "@craft-agent/shared": ["../shared/src/index.ts"],
-      "@craft-agent/shared/*": ["../shared/src/*"],
-      "@craft-agent/server-core": ["../server-core/src/index.ts"],
-      "@craft-agent/server-core/*": ["../server-core/src/*"],
-      "@craft-agent/core": ["../core/src/index.ts"],
-      "@craft-agent/core/*": ["../core/src/*"]
+      "@orbit-agents/shared": ["../shared/src/index.ts"],
+      "@orbit-agents/shared/*": ["../shared/src/*"],
+      "@orbit-agents/server-core": ["../server-core/src/index.ts"],
+      "@orbit-agents/server-core/*": ["../server-core/src/*"],
+      "@orbit-agents/core": ["../core/src/index.ts"],
+      "@orbit-agents/core/*": ["../core/src/*"]
     }
   },
   "include": ["src/**/*", "../shared/src/agent/bash-parser.d.ts"],

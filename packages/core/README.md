@@ -1,19 +1,19 @@
-# @craft-agent/core
+# @orbit-agents/core
 
-Shared TypeScript types and utilities for Craft Agent applications.
+Shared TypeScript types and utilities for Orbit Agent applications.
 
 ## Installation
 
 ```bash
 # In a workspace package
-bun add @craft-agent/core
+bun add @orbit-agents/core
 ```
 
 Or add to `package.json`:
 ```json
 {
   "dependencies": {
-    "@craft-agent/core": "workspace:*"
+    "@orbit-agents/core": "workspace:*"
   }
 }
 ```
@@ -28,10 +28,10 @@ import type {
   Message,
   TokenUsage,
   AgentEvent,
-} from '@craft-agent/core';
+} from '@orbit-agents/core';
 
 // Import utilities
-import { generateMessageId, debug } from '@craft-agent/core';
+import { generateMessageId, debug } from '@orbit-agents/core';
 ```
 
 ## Exported Types

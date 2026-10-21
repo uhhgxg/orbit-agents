@@ -1,19 +1,19 @@
-# craft-cli — CLI Reference
+# orbit-cli — CLI Reference
 
-Terminal client for Craft Agent server. Connects over WebSocket (`ws://` or `wss://`) to a running headless server.
+Terminal client for Orbit Agent server. Connects over WebSocket (`ws://` or `wss://`) to a running headless server.
 
 ## Prerequisites
 
 - [Bun](https://bun.sh/) runtime installed
 - For `run` and `--validate-server`: an API key via `--api-key`, `$LLM_API_KEY`, or a provider-specific env var (e.g., `$ANTHROPIC_API_KEY`)
-- For all other commands: a running Craft Agent headless server with URL and token
+- For all other commands: a running Orbit Agent headless server with URL and token
 
 ## Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/anthropics/craft-agents.git
-cd craft-agents
+git clone https://github.com/uhhgxg/orbit-agents.git
+cd orbit-agents
 
 # Install dependencies
 bun install
@@ -21,9 +21,9 @@ bun install
 # Option A: Run directly
 bun run apps/cli/src/index.ts <command>
 
-# Option B: Link globally (adds craft-cli to PATH)
+# Option B: Link globally (adds orbit-cli to PATH)
 cd apps/cli && bun link
-craft-cli <command>
+orbit-cli <command>
 ```
 
 ### Quick Start
@@ -54,40 +54,40 @@ Flags take precedence over environment variables. If `--workspace` is omitted, t
 ### Info & Health
 
 ```bash
-craft-cli ping              # Verify connectivity (clientId + latency)
-craft-cli health            # Check credential store health
-craft-cli versions          # Show server runtime versions
+orbit-cli ping              # Verify connectivity (clientId + latency)
+orbit-cli health            # Check credential store health
+orbit-cli versions          # Show server runtime versions
 ```
 
 ### Resource Listing
 
 ```bash
-craft-cli workspaces        # List all workspaces
-craft-cli sessions          # List sessions in workspace
-craft-cli connections       # List LLM connections
-craft-cli sources           # List configured sources
+orbit-cli workspaces        # List all workspaces
+orbit-cli sessions          # List sessions in workspace
+orbit-cli connections       # List LLM connections
+orbit-cli sources           # List configured sources
 ```
 
 ### Session Operations
 
 ```bash
-craft-cli session create [--name <n>] [--mode <m>]  # Create session
-craft-cli session messages <id>                       # Print message history
-craft-cli session delete <id>                         # Delete session
-craft-cli cancel <id>                                 # Cancel processing
+orbit-cli session create [--name <n>] [--mode <m>]  # Create session
+orbit-cli session messages <id>                       # Print message history
+orbit-cli session delete <id>                         # Delete session
+orbit-cli cancel <id>                                 # Cancel processing
 ```
 
 ### Send Message (Streaming)
 
 ```bash
 # Send a message and stream the AI response in real time
-craft-cli send <session-id> <message>
+orbit-cli send <session-id> <message>
 
 # Pipe text from stdin
-echo "Summarize this file" | craft-cli send <session-id>
+echo "Summarize this file" | orbit-cli send <session-id>
 
 # Read from stdin explicitly
-cat document.txt | craft-cli send <session-id> --stdin
+cat document.txt | orbit-cli send <session-id> --stdin
 ```
 
 The `send` command subscribes to session events and streams them to stdout:
@@ -102,24 +102,24 @@ The `send` command subscribes to session events and streams them to stdout:
 
 ```bash
 # Raw RPC call — send any channel with JSON args
-craft-cli invoke <channel> [json-args...]
+orbit-cli invoke <channel> [json-args...]
 
 # Subscribe to push events (Ctrl+C to stop)
-craft-cli listen <channel>
+orbit-cli listen <channel>
 ```
 
 Examples:
 ```bash
-craft-cli invoke system:homeDir
-craft-cli invoke sessions:get '"workspace-123"'
-craft-cli listen session:event
+orbit-cli invoke system:homeDir
+orbit-cli invoke sessions:get '"workspace-123"'
+orbit-cli listen session:event
 ```
 
 ### Run (Self-Contained)
 
 ```bash
-craft-cli run <prompt>
-craft-cli run --workspace-dir ./project --source github "List open PRs"
+orbit-cli run <prompt>
+orbit-cli run --workspace-dir ./project --source github "List open PRs"
 ```
 
 The `run` command is fully self-contained — it spawns a headless server, creates a session, sends the prompt, streams the response, and exits. No separate server setup needed. An API key is resolved from `--api-key`, `$LLM_API_KEY`, or a provider-specific env var (e.g., `$ANTHROPIC_API_KEY`, `$OPENAI_API_KEY`).
@@ -144,25 +144,25 @@ The `run` command is fully self-contained — it spawns a headless server, creat
 
 ```bash
 # Multi-provider examples
-craft-cli run --provider openai --model gpt-4o "Summarize this repo"
-GOOGLE_API_KEY=... craft-cli run --provider google --model gemini-2.0-flash "Hello"
-craft-cli run --provider anthropic --base-url https://openrouter.ai/api/v1 --api-key $OR_KEY "Hello"
+orbit-cli run --provider openai --model gpt-4o "Summarize this repo"
+GOOGLE_API_KEY=... orbit-cli run --provider google --model gemini-2.0-flash "Hello"
+orbit-cli run --provider anthropic --base-url https://openrouter.ai/api/v1 --api-key $OR_KEY "Hello"
 ```
 
 Prompt can also be piped via stdin:
 ```bash
-echo "Summarize this file" | craft-cli run
-cat error.log | craft-cli run "What's causing these errors?"
+echo "Summarize this file" | orbit-cli run
+cat error.log | orbit-cli run "What's causing these errors?"
 ```
 
 ### Validate Server
 
 ```bash
 # Against a running server
-craft-cli --validate-server --url ws://127.0.0.1:9100 --token <token>
+orbit-cli --validate-server --url ws://127.0.0.1:9100 --token <token>
 
 # Self-contained (auto-spawns a server)
-craft-cli --validate-server
+orbit-cli --validate-server
 ```
 
 When no `--url` is provided, `--validate-server` automatically spawns a local headless server (same as the `run` command), runs the validation, and shuts it down.
@@ -197,22 +197,22 @@ Runs a 21-step integration test covering the full server lifecycle including sou
 
 ```bash
 # Get workspace IDs
-WORKSPACES=$(craft-cli --json workspaces | jq -r '.[].id')
+WORKSPACES=$(orbit-cli --json workspaces | jq -r '.[].id')
 
 # Count sessions per workspace
 for ws in $WORKSPACES; do
-  COUNT=$(craft-cli --json --workspace "$ws" sessions | jq length)
+  COUNT=$(orbit-cli --json --workspace "$ws" sessions | jq length)
   echo "$ws: $COUNT sessions"
 done
 
 # Create a session and capture its ID
-SESSION_ID=$(craft-cli --json session create --name "CI Run" | jq -r '.id')
+SESSION_ID=$(orbit-cli --json session create --name "CI Run" | jq -r '.id')
 
 # Send a message and wait for completion
-craft-cli send "$SESSION_ID" "Run the test suite and report results"
+orbit-cli send "$SESSION_ID" "Run the test suite and report results"
 
 # Clean up
-craft-cli session delete "$SESSION_ID"
+orbit-cli session delete "$SESSION_ID"
 ```
 
 ## TLS / wss://
@@ -221,10 +221,10 @@ For remote servers with TLS:
 
 ```bash
 # Trusted certificate (Let's Encrypt, etc.)
-craft-cli --url wss://server.example.com:9100 ping
+orbit-cli --url wss://server.example.com:9100 ping
 
 # Self-signed certificate
-craft-cli --url wss://server.example.com:9100 --tls-ca /path/to/ca.pem ping
+orbit-cli --url wss://server.example.com:9100 --tls-ca /path/to/ca.pem ping
 ```
 
 The `--tls-ca` flag sets `NODE_EXTRA_CA_CERTS` before connecting. You can also set `CRAFT_TLS_CA` in your environment.

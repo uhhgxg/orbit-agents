@@ -13,7 +13,7 @@
 import type { LLMQueryRequest, LLMQueryResult } from './llm-tool.ts';
 import type { SpawnSessionFn } from './spawn-session-tool.ts';
 import type { BrowserPaneFns } from './browser-tools.ts';
-import type { AuthRequest } from '@craft-agent/session-tools-core';
+import type { AuthRequest } from '@orbit-agents/session-tools-core';
 import { debug } from '../utils/debug.ts';
 
 /**
@@ -58,17 +58,17 @@ export interface SessionScopedToolCallbacks {
   /** Archive (archived=true) or unarchive (archived=false) a session by ID. */
   archiveSessionFn?: (sessionId: string, archived: boolean) => void | Promise<void>;
   /** Get detailed info about a session (defaults to current). */
-  getSessionInfoFn?: (sessionId?: string) => import('@craft-agent/session-tools-core').SessionInfo | null;
+  getSessionInfoFn?: (sessionId?: string) => import('@orbit-agents/session-tools-core').SessionInfo | null;
   /** List sessions in the workspace with pagination. */
-  listSessionsFn?: (options?: import('@craft-agent/session-tools-core').ListSessionsOptions) => import('@craft-agent/session-tools-core').ListSessionsResult;
+  listSessionsFn?: (options?: import('@orbit-agents/session-tools-core').ListSessionsOptions) => import('@orbit-agents/session-tools-core').ListSessionsResult;
   /** List background tasks (running + terminal) for a session from the main-process registry. */
-  listBackgroundTasksFn?: (sessionId?: string) => import('@craft-agent/session-tools-core').BackgroundTaskInfo[];
+  listBackgroundTasksFn?: (sessionId?: string) => import('@orbit-agents/session-tools-core').BackgroundTaskInfo[];
   /** Resolve label display names to IDs. */
-  resolveLabelsFn?: (labels: string[]) => import('@craft-agent/session-tools-core').ResolvedLabelsResult;
+  resolveLabelsFn?: (labels: string[]) => import('@orbit-agents/session-tools-core').ResolvedLabelsResult;
   /** Resolve a status display name to its ID. */
-  resolveStatusFn?: (status: string) => import('@craft-agent/session-tools-core').ResolvedStatusResult;
+  resolveStatusFn?: (status: string) => import('@orbit-agents/session-tools-core').ResolvedStatusResult;
   /** Send a message to another session (inter-session messaging). Resolves with delivery status. */
-  sendAgentMessageFn?: (sessionId: string, message: string, attachments?: Array<{ path: string; name?: string }>) => Promise<import('@craft-agent/session-tools-core').SendAgentMessageResult>;
+  sendAgentMessageFn?: (sessionId: string, message: string, attachments?: Array<{ path: string; name?: string }>) => Promise<import('@orbit-agents/session-tools-core').SendAgentMessageResult>;
   /**
    * Activate a source in the running session (source_test auto-enable flow).
    * Wired by SessionManager to the per-session onSourceActivationRequest callback
@@ -83,10 +83,10 @@ export interface SessionScopedToolCallbacks {
   getMessagingBindingsFn?: (sessionId: string) => Array<{ platform: string; channelId: string; threadId?: number; channelName?: string; enabled: boolean }>;
   /** Unbind messaging channels from a session. Returns count of removed bindings. */
   unbindMessagingChannelFn?: (sessionId: string, platform?: string) => number;
-  /** Create a Craft Agents Task (board card + task.yaml + orchestrator session) without running it. */
+  /** Create a Orbit Agents Task (board card + task.yaml + orchestrator session) without running it. */
   createTaskFn?: (
-    input: import('@craft-agent/session-tools-core').CreateTaskInput
-  ) => Promise<import('@craft-agent/session-tools-core').CreateTaskResult>;
+    input: import('@orbit-agents/session-tools-core').CreateTaskInput
+  ) => Promise<import('@orbit-agents/session-tools-core').CreateTaskResult>;
 }
 
 // Registry of callbacks keyed by sessionId

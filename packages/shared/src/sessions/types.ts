@@ -11,7 +11,7 @@
 
 import type { PermissionMode } from '../agent/mode-manager.ts';
 import type { ThinkingLevel } from '../agent/thinking-levels.ts';
-import type { StoredAttachment, MessageRole, ToolStatus, AuthRequestType, AuthStatus, CredentialInputMode, StoredMessage } from '@craft-agent/core/types';
+import type { StoredAttachment, MessageRole, ToolStatus, AuthRequestType, AuthStatus, CredentialInputMode, StoredMessage } from '@orbit-agents/core/types';
 
 /**
  * Session fields that persist to disk.
@@ -100,9 +100,9 @@ export interface SessionTokenUsage {
 
 /**
  * Stored message format (simplified for persistence)
- * Re-exported from @craft-agent/core for convenience
+ * Re-exported from @orbit-agents/core for convenience
  */
-export type { StoredMessage } from '@craft-agent/core/types';
+export type { StoredMessage } from '@orbit-agents/core/types';
 
 /**
  * Session configuration (persisted metadata)

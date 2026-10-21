@@ -1,6 +1,6 @@
 {
-  "name": "Craft Agents",
-  "short_name": "Craft Agents",
+  "name": "Orbit Agents",
+  "short_name": "Orbit Agents",
   "description": "AI agent interface",
   "start_url": "./",
   "display": "standalone",

@@ -2,9 +2,9 @@ import { describe, it, expect, beforeEach, afterEach } from 'bun:test';
 import { mkdtempSync, rmSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import type { TokenUsage } from '@craft-agent/core/types';
-import type { CreateSessionOptions } from '@craft-agent/shared/protocol';
-import { parseTaskSpec, saveTaskSpec, readRunLog, readNodeOutput, type TaskSpec } from '@craft-agent/shared/tasks';
+import type { TokenUsage } from '@orbit-agents/core/types';
+import type { CreateSessionOptions } from '@orbit-agents/shared/protocol';
+import { parseTaskSpec, saveTaskSpec, readRunLog, readNodeOutput, type TaskSpec } from '@orbit-agents/shared/tasks';
 import type { SessionCompletionEvent } from '../sessions/SessionManager';
 import { TaskRunner, type ConductorSessionHost } from './TaskRunner';
 

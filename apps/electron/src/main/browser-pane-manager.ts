@@ -8,7 +8,7 @@
 
 import { join, parse as parsePath } from 'path'
 import { existsSync, mkdirSync } from 'fs'
-import { validateFilePath, getWorkspaceAllowedDirs } from '@craft-agent/server-core/handlers'
+import { validateFilePath, getWorkspaceAllowedDirs } from '@orbit-agents/server-core/handlers'
 import { BrowserView, BrowserWindow, app, ipcMain, nativeTheme, session, shell, type Session as ElectronSession } from 'electron'
 import { mainLog } from './logger'
 import type { WindowManager } from './window-manager'
@@ -18,17 +18,17 @@ import {
   type BrowserEmptyStateLaunchResult,
   type BrowserInstanceInfo,
 } from '../shared/types'
-import { DEFAULT_THEME, loadAppTheme, getAllowRemoteEvaluate } from '@craft-agent/shared/config'
-import { CodedError } from '@craft-agent/shared/protocol'
+import { DEFAULT_THEME, loadAppTheme, getAllowRemoteEvaluate } from '@orbit-agents/shared/config'
+import { CodedError } from '@orbit-agents/shared/protocol'
 import { getBrowserLiveFxCornerRadii } from '../shared/browser-live-fx'
 import type {
   IBrowserPaneManager,
   BrowserInstanceSnapshot,
-} from '@craft-agent/server-core/handlers'
+} from '@orbit-agents/server-core/handlers'
 import type {
   BrowserCapabilityRequest,
   ScreenshotResultWire,
-} from '@craft-agent/server-core/transport'
+} from '@orbit-agents/server-core/transport'
 
 export type { BrowserInstanceInfo }
 
@@ -1607,7 +1607,7 @@ export class BrowserPaneManager implements IBrowserPaneManager {
     return instance.downloads.slice(-limit)
   }
 
-  // validateUploadFilePath removed — uses shared validateFilePath from @craft-agent/server-core/handlers
+  // validateUploadFilePath removed — uses shared validateFilePath from @orbit-agents/server-core/handlers
 
   async uploadFile(id: string, ref: string, filePaths: string[]): Promise<ElementGeometry> {
     const instance = this.requireAliveInstance(id)

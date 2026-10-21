@@ -3,7 +3,7 @@
  * Session MCP Server
  *
  * This MCP server provides session-scoped tools to Codex via stdio transport.
- * It uses the shared handlers from @craft-agent/session-tools-core to ensure
+ * It uses the shared handlers from @orbit-agents/session-tools-core to ensure
  * feature parity with Claude's session-scoped tools.
  *
  * Callback Communication:
@@ -32,7 +32,7 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { isDeveloperFeedbackEnabled } from '@craft-agent/shared/feature-flags';
+import { isDeveloperFeedbackEnabled } from '@orbit-agents/shared/feature-flags';
 // Import from session-tools-core
 import {
   type SessionToolContext,
@@ -47,7 +47,7 @@ import {
   // Helpers
   loadSourceConfig as loadSourceConfigFromHelpers,
   errorResponse,
-} from '@craft-agent/session-tools-core';
+} from '@orbit-agents/session-tools-core';
 
 // ============================================================
 // Types
@@ -269,7 +269,7 @@ function createSessionTools(includeDeveloperFeedback: boolean): Tool[] {
 }
 
 // ============================================================
-// Craft Agents Docs Upstream Proxy
+// Orbit Agents Docs Upstream Proxy
 // ============================================================
 
 const DOCS_MCP_URL = 'https://agents.craft.do/docs/mcp';
@@ -296,9 +296,9 @@ async function connectDocsUpstream(): Promise<void> {
     docsTools = (result.tools || []) as Tool[];
     docsClient = client;
 
-    console.error(`Craft Agents Docs proxy connected: ${docsTools.length} tools`);
+    console.error(`Orbit Agents Docs proxy connected: ${docsTools.length} tools`);
   } catch (err) {
-    console.error(`Craft Agents Docs proxy connection failed (non-fatal): ${err instanceof Error ? err.message : String(err)}`);
+    console.error(`Orbit Agents Docs proxy connection failed (non-fatal): ${err instanceof Error ? err.message : String(err)}`);
     docsClient = null;
     docsTools = [];
   }
@@ -312,7 +312,7 @@ async function callDocsUpstream(
   args: Record<string, unknown>
 ): Promise<{ content: Array<{ type: 'text'; text: string }>; isError?: boolean }> {
   if (!docsClient) {
-    return errorResponse(`Craft Agents Docs server is not connected. Tool '${name}' unavailable.`);
+    return errorResponse(`Orbit Agents Docs server is not connected. Tool '${name}' unavailable.`);
   }
 
   try {

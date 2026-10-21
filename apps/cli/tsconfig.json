@@ -19,10 +19,10 @@
     "noUnusedParameters": false,
     "baseUrl": ".",
     "paths": {
-      "@craft-agent/shared": ["../../packages/shared/src/index.ts"],
-      "@craft-agent/shared/*": ["../../packages/shared/src/*"],
-      "@craft-agent/server-core": ["../../packages/server-core/src/index.ts"],
-      "@craft-agent/server-core/*": ["../../packages/server-core/src/*"]
+      "@orbit-agents/shared": ["../../packages/shared/src/index.ts"],
+      "@orbit-agents/shared/*": ["../../packages/shared/src/*"],
+      "@orbit-agents/server-core": ["../../packages/server-core/src/index.ts"],
+      "@orbit-agents/server-core/*": ["../../packages/server-core/src/*"]
     }
   },
   "include": ["src/**/*", "../../packages/shared/src/**/*.d.ts"],

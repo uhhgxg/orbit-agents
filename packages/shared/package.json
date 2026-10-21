@@ -1,8 +1,8 @@
 {
-  "name": "@craft-agent/shared",
+  "name": "@orbit-agents/shared",
   "version": "0.11.4",
   "license": "Apache-2.0",
-  "description": "Shared business logic for Craft Agents - agent, auth, config, credentials, MCP integration",
+  "description": "Shared business logic for Orbit Agents - agent, auth, config, credentials, MCP integration",
   "type": "module",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -68,8 +68,8 @@
     "./resources": "./src/resources/index.ts"
   },
   "dependencies": {
-    "@craft-agent/core": "workspace:*",
-    "@craft-agent/session-tools-core": "workspace:*",
+    "@orbit-agents/core": "workspace:*",
+    "@orbit-agents/session-tools-core": "workspace:*",
     "@isaacs/ttlcache": "^2.1.4",
     "@leeoniya/ufuzzy": "^1.0.19",
     "bash-parser": "^0.5.0",

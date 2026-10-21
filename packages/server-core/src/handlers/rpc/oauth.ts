@@ -1,9 +1,9 @@
 import { randomUUID } from 'node:crypto'
-import { RPC_CHANNELS } from '@craft-agent/shared/protocol'
-import { getWorkspaceByNameOrId } from '@craft-agent/shared/config'
-import { loadSource, loadWorkspaceSources, getSourceCredentialManager } from '@craft-agent/shared/sources'
-import { createPendingFlow } from '@craft-agent/shared/auth'
-import { pushTyped, type RpcServer } from '@craft-agent/server-core/transport'
+import { RPC_CHANNELS } from '@orbit-agents/shared/protocol'
+import { getWorkspaceByNameOrId } from '@orbit-agents/shared/config'
+import { loadSource, loadWorkspaceSources, getSourceCredentialManager } from '@orbit-agents/shared/sources'
+import { createPendingFlow } from '@orbit-agents/shared/auth'
+import { pushTyped, type RpcServer } from '@orbit-agents/server-core/transport'
 import type { HandlerDeps } from '../handler-deps'
 
 export const HANDLED_CHANNELS = [

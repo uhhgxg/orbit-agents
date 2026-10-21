@@ -67,8 +67,8 @@ Sentry.init({
 // renderer would restore its language from localStorage on every restart while
 // the main process silently stayed at English — breaking session title language,
 // the system prompt's "Preferred language" line, and the native menu.
-import { setupI18n, i18n, SUPPORTED_LANGUAGE_CODES, type LanguageCode } from '@craft-agent/shared/i18n'
-import { getPersistedUiLanguage, setPersistedUiLanguage } from '@craft-agent/shared/config'
+import { setupI18n, i18n, SUPPORTED_LANGUAGE_CODES, type LanguageCode } from '@orbit-agents/shared/i18n'
+import { getPersistedUiLanguage, setPersistedUiLanguage } from '@orbit-agents/shared/config'
 setupI18n()
 const persistedUiLanguage = getPersistedUiLanguage()
 if (persistedUiLanguage) {
@@ -83,42 +83,42 @@ Sentry.setUser({ id: machineId })
 
 import { join, delimiter } from 'path'
 import { existsSync, readFileSync } from 'fs'
-import { RPC_CHANNELS } from '@craft-agent/shared/protocol'
-import { SessionManager, setSessionPlatform, setSessionRuntimeHooks } from '@craft-agent/server-core/sessions'
+import { RPC_CHANNELS } from '@orbit-agents/shared/protocol'
+import { SessionManager, setSessionPlatform, setSessionRuntimeHooks } from '@orbit-agents/server-core/sessions'
 import { registerAllRpcHandlers } from './handlers/index'
-import { registerCoreRpcHandlers, cleanupSessionFileWatchForClient } from '@craft-agent/server-core/handlers/rpc'
+import { registerCoreRpcHandlers, cleanupSessionFileWatchForClient } from '@orbit-agents/server-core/handlers/rpc'
 import type { PlatformServices } from '../runtime/platform'
 import { createElectronPlatform } from './platform'
 import type { HandlerDeps } from './handlers/handler-deps'
-import { bootstrapServer, releaseServerLock } from '@craft-agent/server-core/bootstrap'
-import { createMessagingBootstrap, type MessagingBootstrapHandle } from '@craft-agent/messaging-gateway'
-import { getCredentialManager } from '@craft-agent/shared/credentials'
-import { initModelRefreshService, getModelRefreshService, setFetcherPlatform } from '@craft-agent/server-core/model-fetchers'
-import { setSearchPlatform, setImageProcessor } from '@craft-agent/server-core/services'
+import { bootstrapServer, releaseServerLock } from '@orbit-agents/server-core/bootstrap'
+import { createMessagingBootstrap, type MessagingBootstrapHandle } from '@orbit-agents/messaging-gateway'
+import { getCredentialManager } from '@orbit-agents/shared/credentials'
+import { initModelRefreshService, getModelRefreshService, setFetcherPlatform } from '@orbit-agents/server-core/model-fetchers'
+import { setSearchPlatform, setImageProcessor } from '@orbit-agents/server-core/services'
 import { createApplicationMenu } from './menu'
 import { WindowManager } from './window-manager'
 import { loadWindowState, saveWindowState } from './window-state'
-import { getWorkspaces, getWorkspaceByNameOrId, loadStoredConfig, addWorkspace, saveConfig } from '@craft-agent/shared/config'
-import { getDefaultWorkspacesDir } from '@craft-agent/shared/workspaces'
-import { initializeDocs } from '@craft-agent/shared/docs'
-import { initializeReleaseNotes } from '@craft-agent/shared/release-notes'
-import { ensureDefaultPermissions } from '@craft-agent/shared/agent/permissions-config'
-import { ensureToolIcons, ensurePresetThemes } from '@craft-agent/shared/config'
-import { setBundledAssetsRoot } from '@craft-agent/shared/utils'
-import { initializeBackendHostRuntime } from '@craft-agent/shared/agent/backend'
-import { setPowerShellValidatorRoot } from '@craft-agent/shared/agent'
+import { getWorkspaces, getWorkspaceByNameOrId, loadStoredConfig, addWorkspace, saveConfig } from '@orbit-agents/shared/config'
+import { getDefaultWorkspacesDir } from '@orbit-agents/shared/workspaces'
+import { initializeDocs } from '@orbit-agents/shared/docs'
+import { initializeReleaseNotes } from '@orbit-agents/shared/release-notes'
+import { ensureDefaultPermissions } from '@orbit-agents/shared/agent/permissions-config'
+import { ensureToolIcons, ensurePresetThemes } from '@orbit-agents/shared/config'
+import { setBundledAssetsRoot } from '@orbit-agents/shared/utils'
+import { initializeBackendHostRuntime } from '@orbit-agents/shared/agent/backend'
+import { setPowerShellValidatorRoot } from '@orbit-agents/shared/agent'
 import { handleDeepLink } from './deep-link'
 import { BrowserPaneManager } from './browser-pane-manager'
-import { OAuthFlowStore } from '@craft-agent/shared/auth'
+import { OAuthFlowStore } from '@orbit-agents/shared/auth'
 import { registerThumbnailScheme, registerThumbnailHandler } from './thumbnail-protocol'
 import log, { isDebugMode, mainLog, getLogFilePath, getMessagingGatewayLogFilePath, messagingGatewayLog, autoUpdateLog } from './logger'
-import { setPerfEnabled, enableDebug } from '@craft-agent/shared/utils'
-import { registerPiModelResolver } from '@craft-agent/shared/config'
-import { getPiModelsForAuthProvider, getAllPiModels } from '@craft-agent/shared/config'
+import { setPerfEnabled, enableDebug } from '@orbit-agents/shared/utils'
+import { registerPiModelResolver } from '@orbit-agents/shared/config'
+import { getPiModelsForAuthProvider, getAllPiModels } from '@orbit-agents/shared/config'
 import { initNotificationService, initBadgeIcon, initInstanceBadge, updateBadgeCount } from './notifications'
 import { checkForUpdatesOnLaunch, setAutoUpdateEventSink, isUpdating, setBeforeUpdateQuitHook, setBeforeUpdateInstallHook, setInstallQuitFailedHook } from './auto-update'
-import type { EventSink } from '@craft-agent/server-core/transport'
-import { validateGitBashPath, checkVCRedistInstalled } from '@craft-agent/server-core/services'
+import type { EventSink } from '@orbit-agents/server-core/transport'
+import { validateGitBashPath, checkVCRedistInstalled } from '@orbit-agents/server-core/services'
 
 // Initialize electron-log for renderer process support
 log.initialize()
@@ -173,11 +173,11 @@ if (isDebugMode) {
     ? join(app.getAppPath(), 'packages', 'craft-agents-commands', 'src', 'main.ts')
     : join(process.cwd(), 'packages', 'craft-agents-commands', 'src', 'main.ts')
   process.env.CRAFT_CLI_ENTRY = app.isPackaged
-    ? join(app.getAppPath(), 'packages', 'craft-cli', 'src', 'cli.ts')
-    : join(process.cwd(), 'packages', 'craft-cli', 'src', 'cli.ts')
+    ? join(app.getAppPath(), 'packages', 'orbit-cli', 'src', 'cli.ts')
+    : join(process.cwd(), 'packages', 'orbit-cli', 'src', 'cli.ts')
   process.env.CRAFT_COMMANDS_DOC_PATH = app.isPackaged
-    ? join(resourcesBase, 'resources', 'docs', 'craft-cli.md')
-    : join(process.cwd(), 'apps', 'electron', 'resources', 'docs', 'craft-cli.md')
+    ? join(resourcesBase, 'resources', 'docs', 'orbit-cli.md')
+    : join(process.cwd(), 'apps', 'electron', 'resources', 'docs', 'orbit-cli.md')
   process.env.CRAFT_CLI_DOC_PATH = process.env.CRAFT_COMMANDS_DOC_PATH
   process.env.CRAFT_AGENT_VERSION = app.getVersion()
   // Prepend both generic wrappers dir and platform uv dir:
@@ -225,8 +225,8 @@ let messagingHandle: MessagingBootstrapHandle | null = null
 let pendingDeepLink: string | null = null
 
 // Set app name early (before app.whenReady) to ensure correct macOS menu bar title
-// Supports multi-instance dev: CRAFT_APP_NAME env var (e.g., "Craft Agents [1]")
-app.setName(process.env.CRAFT_APP_NAME || 'Craft Agents')
+// Supports multi-instance dev: CRAFT_APP_NAME env var (e.g., "Orbit Agents [1]")
+app.setName(process.env.CRAFT_APP_NAME || 'Orbit Agents')
 
 // Register as default protocol client for craftagents:// URLs
 // This must be done before app.whenReady() on some platforms
@@ -553,7 +553,7 @@ app.whenReady().then(async () => {
     if (!isClientOnly) {
       // Restore persisted Git Bash path on Windows (must happen before any SDK subprocess spawn)
       if (process.platform === 'win32') {
-        const { getGitBashPath, clearGitBashPath } = await import('@craft-agent/shared/config')
+        const { getGitBashPath, clearGitBashPath } = await import('@orbit-agents/shared/config')
         const gitBashPath = getGitBashPath()
         if (gitBashPath) {
           const validation = await validateGitBashPath(gitBashPath)
@@ -591,7 +591,7 @@ app.whenReady().then(async () => {
       const resolveClientId = (wcId: number) => clientMap.get(wcId)
 
       // Read embedded server config (Server settings page)
-      const { getServerConfig } = await import('@craft-agent/shared/config')
+      const { getServerConfig } = await import('@orbit-agents/shared/config')
       const embeddedServerConfig = getServerConfig()
       const serverModeEnabled = embeddedServerConfig.enabled && !isClientOnly
 
@@ -606,7 +606,7 @@ app.whenReady().then(async () => {
         : (serverModeEnabled ? embeddedServerConfig.port : 0)
 
       // Load TLS certificates if configured
-      let tls: import('@craft-agent/server-core/transport').WsRpcTlsOptions | undefined
+      let tls: import('@orbit-agents/server-core/transport').WsRpcTlsOptions | undefined
       if (serverModeEnabled && embeddedServerConfig.tlsCertPath && embeddedServerConfig.tlsKeyPath) {
         try {
           tls = {
@@ -703,7 +703,7 @@ app.whenReady().then(async () => {
         setSessionEventSink: (sm, sink) => sm.setEventSink(sink),
         initializeSessionManager: (sm) => sm.initialize(),
         initModelRefreshService: () => initModelRefreshService(async (slug: string) => {
-          const { getCredentialManager } = await import('@craft-agent/shared/credentials')
+          const { getCredentialManager } = await import('@orbit-agents/shared/credentials')
           const manager = getCredentialManager()
           const [apiKey, oauth] = await Promise.all([
             manager.getLlmApiKey(slug).catch(() => null),
@@ -767,7 +767,7 @@ app.whenReady().then(async () => {
 
       // Remove workspace from config (cleanup stale entries)
       ipcMain.handle('workspace:remove', async (_event, workspaceId: string) => {
-        const { removeWorkspace: remove } = await import('@craft-agent/shared/config')
+        const { removeWorkspace: remove } = await import('@orbit-agents/shared/config')
         return remove(workspaceId)
       })
 
@@ -791,7 +791,7 @@ app.whenReady().then(async () => {
       ipcMain.handle('session:transferToWorkspace', async (_event, sessionId: string, targetWorkspaceId: string, sessionIndex?: number, sessionCount?: number) => {
         const idx = sessionIndex ?? 0
         const count = sessionCount ?? 1
-        const { getWorkspaceByNameOrId } = await import('@craft-agent/shared/config')
+        const { getWorkspaceByNameOrId } = await import('@orbit-agents/shared/config')
         const { connectToRemote } = await import('./handlers/workspace')
         const { CHUNKED_TRANSFER_THRESHOLD, getChunkCount, invokeChunked, prepareChunkedPayload } = await import('./chunked-rpc')
 
@@ -960,13 +960,13 @@ app.whenReady().then(async () => {
       }
 
       instance.wsServer.handle(RPC_CHANNELS.settings.GET_SERVER_CONFIG, async () => {
-        const { getServerConfig: getConfig } = await import('@craft-agent/shared/config')
+        const { getServerConfig: getConfig } = await import('@orbit-agents/shared/config')
         return getConfig()
       })
 
       instance.wsServer.handle(RPC_CHANNELS.settings.SET_SERVER_CONFIG, async (_ctx: unknown, config: unknown) => {
-        const { setServerConfig: setConfig } = await import('@craft-agent/shared/config')
-        const cfg = config as import('@craft-agent/shared/config/server-config').ServerConfig
+        const { setServerConfig: setConfig } = await import('@orbit-agents/shared/config')
+        const cfg = config as import('@orbit-agents/shared/config/server-config').ServerConfig
         // Validate port range
         if (cfg.port < 1024 || cfg.port > 65535) {
           throw new Error(`Port must be between 1024 and 65535, got ${cfg.port}`)
@@ -982,7 +982,7 @@ app.whenReady().then(async () => {
       })
 
       instance.wsServer.handle(RPC_CHANNELS.settings.GET_SERVER_STATUS, async () => {
-        const { getServerConfig: getConfig } = await import('@craft-agent/shared/config')
+        const { getServerConfig: getConfig } = await import('@orbit-agents/shared/config')
         const saved = getConfig()
         const protocol = runningServerState.tls ? 'wss' : 'ws'
 
@@ -1063,7 +1063,7 @@ app.whenReady().then(async () => {
     // Skip in thin-client mode — credentials are managed by the remote server.
     if (!isClientOnly) {
       try {
-        const { getCredentialManager } = await import('@craft-agent/shared/credentials')
+        const { getCredentialManager } = await import('@orbit-agents/shared/credentials')
         const credentialManager = getCredentialManager()
         const health = await credentialManager.checkHealth()
         if (!health.healthy) {
@@ -1088,7 +1088,7 @@ app.whenReady().then(async () => {
     // Runs after init so config and auth state are available.
     // Derives values from the default LLM connection instead of legacy config fields.
     try {
-      const { getLlmConnection, getDefaultLlmConnection } = await import('@craft-agent/shared/config')
+      const { getLlmConnection, getDefaultLlmConnection } = await import('@orbit-agents/shared/config')
       const workspaces = getWorkspaces()
       const defaultConnSlug = getDefaultLlmConnection()
       const defaultConn = defaultConnSlug ? getLlmConnection(defaultConnSlug) : null
@@ -1127,7 +1127,7 @@ app.whenReady().then(async () => {
         type: 'error',
         title: 'Update failed',
         message: 'The update could not be installed.',
-        detail: 'Craft Agents will restart now. The update will be retried on the next launch.',
+        detail: 'Orbit Agents will restart now. The update will be retried on the next launch.',
       })
       app.relaunch()
       app.exit(0)

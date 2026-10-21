@@ -340,7 +340,7 @@ export interface SessionToolContext {
   resolveStatus?(status: string): ResolvedStatusResult;
 
   /**
-   * Create a Craft Agents Task (board card + task.yaml + orchestrator session)
+   * Create a Orbit Agents Task (board card + task.yaml + orchestrator session)
    * WITHOUT running it. Slug derivation, node synthesis, and spec validation
    * happen behind this callback where the task primitives live. Injected by
    * backend (SessionManager); undefined in backends that don't run alongside
@@ -428,7 +428,7 @@ export interface ResolvedLabelsResult {
   available: string[];
   /**
    * Optional per-input rejection reason, keyed by the original input string.
-   * Populated by `resolveSessionLabels()` from `@craft-agent/shared/labels`.
+   * Populated by `resolveSessionLabels()` from `@orbit-agents/shared/labels`.
    * Handlers use this to build clearer errors (e.g. "label X doesn't accept a value").
    */
   reasons?: Record<string, string>;

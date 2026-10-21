@@ -7,8 +7,8 @@
  * actually read.
  */
 
-import type { Message } from '@craft-agent/core/types'
-import type { LabelConfig } from '@craft-agent/shared/labels'
+import type { Message } from '@orbit-agents/core/types'
+import type { LabelConfig } from '@orbit-agents/shared/labels'
 import type { LlmConnectionWithStatus } from '@config/llm-connections'
 import type { LoadedSource, LoadedSkill, Session, Workspace } from '../../../../shared/types'
 import type { SessionMeta } from '@/atoms/sessions'

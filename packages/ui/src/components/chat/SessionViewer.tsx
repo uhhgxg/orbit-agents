@@ -9,7 +9,7 @@
 
 import type { ReactNode } from 'react'
 import { useMemo, useState, useCallback } from 'react'
-import type { StoredSession } from '@craft-agent/core'
+import type { StoredSession } from '@orbit-agents/core'
 import { cn } from '../../lib/utils'
 import { CHAT_LAYOUT, CHAT_CLASSES } from '../../lib/layout'
 import { PlatformProvider, type PlatformActions } from '../../context'
@@ -49,7 +49,7 @@ export interface SessionViewerProps {
 }
 
 /**
- * CraftAgentLogo - The Craft Agent "C" logo for branding
+ * CraftAgentLogo - The Orbit Agent "C" logo for branding
  */
 function CraftAgentLogo({ className }: { className?: string }) {
   return (

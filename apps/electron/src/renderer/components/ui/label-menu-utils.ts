@@ -1,5 +1,5 @@
-import type { LabelConfig } from '@craft-agent/shared/labels'
-import { flattenLabelsWithParentPath } from '@craft-agent/shared/labels'
+import type { LabelConfig } from '@orbit-agents/shared/labels'
+import { flattenLabelsWithParentPath } from '@orbit-agents/shared/labels'
 
 export interface LabelMenuItem {
   id: string

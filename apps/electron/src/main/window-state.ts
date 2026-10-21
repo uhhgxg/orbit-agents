@@ -1,5 +1,5 @@
 import { writeFileSync, existsSync, mkdirSync } from 'fs'
-import { readJsonFileSync } from '@craft-agent/shared/utils/files'
+import { readJsonFileSync } from '@orbit-agents/shared/utils/files'
 import { mainLog } from './logger'
 import { join } from 'path'
 import { homedir } from 'os'

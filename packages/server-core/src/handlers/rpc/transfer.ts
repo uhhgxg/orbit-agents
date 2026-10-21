@@ -17,7 +17,7 @@ import { existsSync } from 'node:fs'
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
-import { RPC_CHANNELS } from '@craft-agent/shared/protocol'
+import { RPC_CHANNELS } from '@orbit-agents/shared/protocol'
 import type { HandlerFn, RequestContext, RpcServer } from '../../transport/types'
 
 interface TransferState {

@@ -22,8 +22,8 @@ import { WsRpcClient, type TransportConnectionState } from '../transport/client'
 import { RoutedClient } from '../transport/routed-client'
 import { buildClientApi } from '../transport/build-api'
 import { CHANNEL_MAP } from '../transport/channel-map'
-import { createCallbackServer } from '@craft-agent/shared/auth/callback-server'
-import { CHATGPT_OAUTH_CONFIG } from '@craft-agent/shared/auth/chatgpt-oauth-config'
+import { createCallbackServer } from '@orbit-agents/shared/auth/callback-server'
+import { CHATGPT_OAUTH_CONFIG } from '@orbit-agents/shared/auth/chatgpt-oauth-config'
 import {
   CLIENT_OPEN_EXTERNAL,
   CLIENT_OPEN_PATH,
@@ -32,10 +32,10 @@ import {
   CLIENT_OPEN_FILE_DIALOG,
   CLIENT_BROWSER_INVOKE,
   LOCAL_CLIENT_CAPABILITIES,
-} from '@craft-agent/server-core/transport'
-import type { ConfirmDialogSpec, FileDialogSpec, BrowserCapabilityRequest } from '@craft-agent/server-core/transport'
-import type { RpcClient } from '@craft-agent/server-core/transport'
-import type { RemoteServerConfig } from '@craft-agent/core/types'
+} from '@orbit-agents/server-core/transport'
+import type { ConfirmDialogSpec, FileDialogSpec, BrowserCapabilityRequest } from '@orbit-agents/server-core/transport'
+import type { RpcClient } from '@orbit-agents/server-core/transport'
+import type { RemoteServerConfig } from '@orbit-agents/core/types'
 import type { ElectronAPI } from '../shared/types'
 
 // ---------------------------------------------------------------------------

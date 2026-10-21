@@ -1,15 +1,15 @@
 # =============================================================================
-# Craft Agents Server — multi-platform Docker image
+# Orbit Agents Server — multi-platform Docker image
 #
 # Build:
-#   docker buildx build -f Dockerfile.server -t craft-agent-server .
+#   docker buildx build -f Dockerfile.server -t orbit-agents-server .
 #
 # Run (use --user to match host UID/GID for volume permissions):
 #   docker run --rm -p 9100:9100 \
 #     --user $(id -u):$(id -g) \
 #     -e HOME=/home/craftagents \
 #     -e CRAFT_SERVER_TOKEN=<secret> \
-#     craft-agent-server
+#     orbit-agents-server
 #
 # Run with TLS + mounted config:
 #   docker run --rm -p 9100:9100 \
@@ -20,13 +20,13 @@
 #     -e CRAFT_RPC_TLS_KEY=/certs/key.pem \
 #     -v /path/to/certs:/certs:ro \
 #     -v ~/.craft-agent:/home/craftagents/.craft-agent \
-#     craft-agent-server
+#     orbit-agents-server
 # =============================================================================
 
 FROM oven/bun:1.3-slim
 
-LABEL org.opencontainers.image.source="https://github.com/lukilabs/craft-agents-oss"
-LABEL org.opencontainers.image.description="Craft Agents Server — headless AI workflow server"
+LABEL org.opencontainers.image.source="https://github.com/uhhgxg/orbit-agents"
+LABEL org.opencontainers.image.description="Orbit Agents Server — headless AI workflow server"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
 # Install system deps + Node.js (required by the WhatsApp worker subprocess;
@@ -61,7 +61,7 @@ COPY packages/session-tools-core/package.json packages/session-tools-core/
 COPY packages/session-mcp-server/package.json packages/session-mcp-server/
 COPY packages/pi-agent-server/package.json packages/pi-agent-server/
 COPY packages/craft-agents-commands/package.json packages/craft-agents-commands/
-COPY packages/craft-cli/package.json packages/craft-cli/
+COPY packages/orbit-cli/package.json packages/orbit-cli/
 COPY packages/ui/package.json packages/ui/
 COPY packages/messaging-gateway/package.json packages/messaging-gateway/
 COPY packages/messaging-whatsapp-worker/package.json packages/messaging-whatsapp-worker/

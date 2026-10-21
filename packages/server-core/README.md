@@ -1,4 +1,4 @@
-# @craft-agent/server-core
+# @orbit-agents/server-core
 
 Reusable WS/headless server infrastructure extracted from `apps/electron`.
 

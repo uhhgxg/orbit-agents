@@ -1,30 +1,26 @@
-<div align="center">
-  <a href="https://trendshift.io/repositories/20714" target="_blank"><img src="https://trendshift.io/api/badge/repositories/20714" alt="craft-ai-agents%2Fcraft-agents-oss | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-</div>
-
-# Craft Agents
+# Orbit Agents
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 ## How it Works (Video)
-To understand what Craft Agents does and how it works watch this video.
+To understand what Orbit Agents does and how it works watch this video.
 
 [![Demo Video](https://img.youtube.com/vi/xQouiAIilvU/hqdefault.jpg)](https://www.youtube.com/watch?v=xQouiAIilvU)
 
 [Click Here (or on the image above) to watch the video on YouTube →](https://www.youtube.com/watch?v=xQouiAIilvU)
 
 
-## Why Craft Agents was built
-Craft Agents is a tool we built so that we (at craft.do) can work effectively with agents. It enables intuitive multitasking, no-fluff connection to any API or Service, sharing sessions, and a more document (vs code) centric workflow - in a beautiful and fluid UI.
+## Why Orbit Agents was built
+Orbit Agents is an independently named fork of the open-source Orbit Agents project. It is a desktop-first agent workspace for intuitive multitasking, multi-session workflows, and connecting AI models to MCP servers, APIs, and local files.
 
 It uses the Claude Agent SDK and the Pi SDK side by side—building on what we found great and improving areas where we've desired improvements.
 
 It's built with Agent Native software principles in mind, and is highly customisable out of the box. One of the first of its kind.
 
-Craft Agents is open source under the Apache 2.0 license - so you are free to remix, change anything. And that's actually possible. We ourselves are building Craft Agents with Craft Agents only - no code editors - so really, any customisation is just a prompt away.
+Orbit Agents is open source under the Apache 2.0 license. The project is designed to be remixed and customized, including through the agent workflows it provides.
 
-We built Craft Agents because we wanted a better, more opinionated (and preferably non-CLI way) of working with the most powerful agents in the world. We'll continue to improve it, based on our experiences and intuition.
+This fork focuses on a more opinionated, non-CLI way of working with capable agents while preserving the upstream project's extensibility.
 
 <img width="1578" height="894" alt="image" src="https://github.com/user-attachments/assets/3f1f2fe8-7cf6-4487-99ff-76f6c8c0a3fb" />
 
@@ -45,7 +41,7 @@ Fully supported. Stdio-based MCP servers run as local subprocesses on your machi
 Yes. Paste an OpenAPI spec, some endpoint URLs, screenshots of docs, whatever you have. It figures it out and guides you through the rest.
 
 **APIs too? Not just MCPs?**
-Craft Agents connects to anything. We have it hooked up to a direct Postgres DB behind a jumpbox. Skills + Sources = magic.
+Orbit Agents connects to anything. We have it hooked up to a direct Postgres DB behind a jumpbox. Skills + Sources = magic.
 
 **How do I import my Claude Code skills and MCPs?**
 Tell the agent you want to import your skills from Claude Code. It handles the migration.
@@ -64,23 +60,11 @@ Yes. That's the core idea behind agent-native software. You describe what you wa
 
 ## Installation
 
-### One-Line Install (Recommended)
-
-**macOS / Linux:**
-```bash
-curl -fsSL https://agents.craft.do/install-app.sh | bash
-```
-
-**Windows (PowerShell):**
-```powershell
-irm https://agents.craft.do/install-app.ps1 | iex
-```
-
 ### Build from Source
 
 ```bash
-git clone https://github.com/lukilabs/craft-agents-oss.git
-cd craft-agents-oss
+git clone https://github.com/uhhgxg/orbit-agents.git
+cd orbit-agents
 bun install
 bun run electron:start
 ```
@@ -91,7 +75,7 @@ bun run electron:start
 - **Claude Code Experience**: Streaming responses, tool visualization, real-time updates
 - **Multiple LLM Connections**: Add multiple AI providers and set per-workspace defaults
 - **Multi-Provider Support**: Run sessions with Google AI Studio, ChatGPT Plus, GitHub Copilot, or OpenAI API keys alongside Anthropic
-- **Craft MCP Integration**: Access to 32+ Craft document tools (blocks, collections, search, tasks)
+- **Document MCP Integration**: Access to document tools for blocks, collections, search, and tasks
 - **Sources**: Connect to MCP servers, REST APIs (Google, Slack, Microsoft), and local filesystems
 - **Permission Modes**: Three-level system (Explore, Ask to Edit, Auto) with customizable rules
 - **Background Tasks**: Run long-running operations with progress tracking
@@ -153,7 +137,7 @@ Use **SHIFT+TAB** to cycle through modes in the chat interface.
 
 ## Remote Server (Headless)
 
-Craft Agents can run as a headless server on a remote machine (e.g., a Linux VPS), with the desktop app connecting as a thin client. This lets you keep long-running sessions alive, access them from multiple machines, and run compute-heavy tasks on a powerful server.
+Orbit Agents can run as a headless server on a remote machine (e.g., a Linux VPS), with the desktop app connecting as a thin client. This lets you keep long-running sessions alive, access them from multiple machines, and run compute-heavy tasks on a powerful server.
 
 ### Quick Start
 
@@ -228,7 +212,7 @@ docker run -d \
   -e CRAFT_SERVER_TOKEN=<token> \
   -e CRAFT_RPC_HOST=0.0.0.0 \
   -v craft-data:/root/.craft-agent \
-  craft-agents-server
+  orbit-agents-server
 ```
 
 To enable TLS in Docker, mount your certificates and set the env vars:
@@ -242,12 +226,12 @@ docker run -d \
   -e CRAFT_RPC_TLS_KEY=/certs/key.pem \
   -v ./certs:/certs:ro \
   -v craft-data:/root/.craft-agent \
-  craft-agents-server
+  orbit-agents-server
 ```
 
 ## CLI Client
 
-A terminal client that connects to a running Craft Agent server over WebSocket (`ws://` or `wss://`). Use it for scripting, CI/CD pipelines, server validation, or when you prefer the command line.
+A terminal client that connects to a running Orbit Agent server over WebSocket (`ws://` or `wss://`). Use it for scripting, CI/CD pipelines, server validation, or when you prefer the command line.
 
 ### Installation
 
@@ -256,7 +240,7 @@ A terminal client that connects to a running Craft Agent server over WebSocket (
 bun run apps/cli/src/index.ts --help
 
 # Or add to your PATH
-alias craft-cli="bun run $(pwd)/apps/cli/src/index.ts"
+alias orbit-cli="bun run $(pwd)/apps/cli/src/index.ts"
 ```
 
 ### Connection
@@ -269,7 +253,7 @@ export CRAFT_SERVER_URL=ws://127.0.0.1:9100
 export CRAFT_SERVER_TOKEN=<your-token>
 
 # Or via flags
-craft-cli --url ws://127.0.0.1:9100 --token <token> ping
+orbit-cli --url ws://127.0.0.1:9100 --token <token> ping
 ```
 
 For TLS connections (`wss://`), use `--tls-ca <path>` for self-signed certificates.
@@ -316,32 +300,32 @@ The `run` command is fully self-contained — it spawns a headless server, creat
 
 ```bash
 # Quick connectivity check
-craft-cli ping
+orbit-cli ping
 
 # List sessions (human-readable)
-craft-cli sessions
+orbit-cli sessions
 
 # Send a message and stream the AI response
-craft-cli send abc-123 "What files are in the current directory?"
+orbit-cli send abc-123 "What files are in the current directory?"
 
 # Pipe input
-echo "Summarize this" | craft-cli send abc-123
+echo "Summarize this" | orbit-cli send abc-123
 
 # JSON output for scripting
-craft-cli --json workspaces | jq '.[].name'
+orbit-cli --json workspaces | jq '.[].name'
 
 # Self-contained run (spawns its own server)
-craft-cli run "Summarize the README"
-craft-cli run --workspace-dir ./my-project --source github "List open PRs"
+orbit-cli run "Summarize the README"
+orbit-cli run --workspace-dir ./my-project --source github "List open PRs"
 
 # Multi-provider support
-craft-cli run --provider openai --model gpt-4o "Summarize this repo"
-GOOGLE_API_KEY=... craft-cli run --provider google --model gemini-2.0-flash "Hello"
-craft-cli run --provider anthropic --base-url https://openrouter.ai/api/v1 --api-key $OR_KEY "Hello"
+orbit-cli run --provider openai --model gpt-4o "Summarize this repo"
+GOOGLE_API_KEY=... orbit-cli run --provider google --model gemini-2.0-flash "Hello"
+orbit-cli run --provider anthropic --base-url https://openrouter.ai/api/v1 --api-key $OR_KEY "Hello"
 
 # Validate the server (auto-spawns if no --url)
-craft-cli --validate-server
-craft-cli --validate-server --url ws://127.0.0.1:9100 --token <token>
+orbit-cli --validate-server
+orbit-cli --validate-server --url ws://127.0.0.1:9100 --token <token>
 ```
 
 ## Architecture
@@ -380,7 +364,7 @@ bun run electron:start
 # Type checking
 bun run typecheck:all
 
-# Debug logging (writes to ~/Library/Logs/@craft-agent/electron/)
+# Debug logging (writes to ~/Library/Logs/@orbit-agents/electron/)
 # Logs are automatically enabled in development
 ```
 
@@ -418,7 +402,7 @@ Go to **APIs & Services → Library** and enable the APIs you need:
 1. Go to **APIs & Services → OAuth consent screen**
 2. Select **External** user type (unless you have Google Workspace)
 3. Fill in required fields:
-   - App name: e.g., "My Craft Agent"
+   - App name: e.g., "My Orbit Agent"
    - User support email: your email
    - Developer contact: your email
 4. Add scopes (optional - can leave default)
@@ -430,11 +414,11 @@ Go to **APIs & Services → Library** and enable the APIs you need:
 1. Go to **APIs & Services → Credentials**
 2. Click **Create Credentials → OAuth Client ID**
 3. Application type: **Desktop app**
-4. Name: e.g., "Craft Agent Desktop"
+4. Name: e.g., "Orbit Agent Desktop"
 5. Click **Create**
 6. Note the **Client ID** and **Client Secret**
 
-#### 5. Configure in Craft Agent
+#### 5. Configure in Orbit Agent
 
 When setting up a Google source (Gmail, Calendar, Drive, YouTube, Search Console, etc.), add these fields to your source's `config.json`:
 
@@ -458,7 +442,7 @@ Or simply tell the agent you want to connect Gmail/Calendar/Drive - it will guid
 
 ## Supported LLM Providers
 
-Craft Agents supports multiple ways to connect to LLM providers:
+Orbit Agents supports multiple ways to connect to LLM providers:
 
 ### Direct Connections
 
@@ -482,7 +466,7 @@ Additional providers are supported through the **Claude / Anthropic API Key** co
 
 ### Architecture
 
-Craft Agents uses two agent backends:
+Orbit Agents uses two agent backends:
 
 - **Claude** — powered by the [Claude Agent SDK](https://www.npmjs.com/package/@anthropic-ai/claude-agent-sdk), which natively supports custom base URLs and provider routing. Anthropic API key, Claude Max/Pro OAuth, and all third-party endpoints use this backend.
 - **Pi** — powered by the Pi SDK, which handles Google AI Studio, ChatGPT Plus (Codex OAuth), GitHub Copilot OAuth, and OpenAI API key connections. Pi connections route through their own provider infrastructure.
@@ -490,6 +474,8 @@ Craft Agents uses two agent backends:
 ## Configuration
 
 Configuration is stored at `~/.craft-agent/`:
+
+> The directory keeps its legacy name so existing sessions, credentials, and workspace data remain compatible with this fork.
 
 ```
 ~/.craft-agent/
@@ -595,18 +581,18 @@ To launch the packaged app with verbose logging enabled, use `-- --debug` (note 
 
 **Windows (PowerShell):**
 ```powershell
-& "$env:LOCALAPPDATA\Programs\@craft-agentelectron\Craft Agents.exe" -- --debug
+& "$env:LOCALAPPDATA\Programs\@orbit-agentselectron\Orbit Agents.exe" -- --debug
 ```
 
 **Linux:**
 ```bash
-./craft-agents -- --debug
+./orbit-agents -- --debug
 ```
 
 Logs are written to:
-- **macOS:** `~/Library/Logs/@craft-agent/electron/main.log`
-- **Windows:** `%APPDATA%\@craft-agent\electron\logs\main.log`
-- **Linux:** `~/.config/@craft-agent/electron/logs/main.log`
+- **macOS:** `~/Library/Logs/@orbit-agents/electron/main.log`
+- **Windows:** `%APPDATA%\@orbit-agents\electron\logs\main.log`
+- **Linux:** `~/.config/@orbit-agents/electron/logs/main.log`
 
 ## License
 
@@ -618,7 +604,7 @@ This project uses the [Claude Agent SDK](https://www.npmjs.com/package/@anthropi
 
 ### Trademark
 
-"Craft" and "Craft Agents" are trademarks of Craft Docs Ltd. See [TRADEMARK.md](TRADEMARK.md) for usage guidelines.
+"Craft" and "Orbit Agents" are trademarks of Craft Docs Ltd. See [TRADEMARK.md](TRADEMARK.md) for usage guidelines.
 
 ## Contributing
 

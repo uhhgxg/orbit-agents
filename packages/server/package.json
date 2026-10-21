@@ -1,7 +1,7 @@
 {
-  "name": "@craft-agent/server",
+  "name": "@orbit-agents/server",
   "version": "0.11.4",
-  "description": "Standalone headless Craft Agent server (Bun runtime)",
+  "description": "Standalone headless Orbit Agent server (Bun runtime)",
   "type": "module",
   "main": "src/index.ts",
   "bin": {
@@ -25,10 +25,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@craft-agent/core": "workspace:*",
-    "@craft-agent/messaging-gateway": "workspace:*",
-    "@craft-agent/server-core": "workspace:*",
-    "@craft-agent/shared": "workspace:*"
+    "@orbit-agents/core": "workspace:*",
+    "@orbit-agents/messaging-gateway": "workspace:*",
+    "@orbit-agents/server-core": "workspace:*",
+    "@orbit-agents/shared": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.8.2",

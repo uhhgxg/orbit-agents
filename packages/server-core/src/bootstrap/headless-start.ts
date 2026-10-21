@@ -3,10 +3,10 @@ import { execFileSync } from 'node:child_process'
 import { uptime as osUptime } from 'node:os'
 import { join, basename } from 'node:path'
 import { lockHolderMatchesLock, parseTasklistImageName, type LockIdentity } from './lock-identity.ts'
-import { OAuthFlowStore } from '@craft-agent/shared/auth'
-import { ensureConfigDir, loadStoredConfig, saveConfig } from '@craft-agent/shared/config'
-import { CONFIG_DIR } from '@craft-agent/shared/config/paths'
-import { setBundledAssetsRoot } from '@craft-agent/shared/utils'
+import { OAuthFlowStore } from '@orbit-agents/shared/auth'
+import { ensureConfigDir, loadStoredConfig, saveConfig } from '@orbit-agents/shared/config'
+import { CONFIG_DIR } from '@orbit-agents/shared/config/paths'
+import { setBundledAssetsRoot } from '@orbit-agents/shared/utils'
 import { WsRpcServer, type WsRpcTlsOptions } from '../transport/server'
 import type { EventSink, RpcServer } from '../transport/types'
 import { createHeadlessPlatform } from '../runtime/platform-headless'
@@ -421,7 +421,7 @@ export async function bootstrapServer<TSessionManager, THandlerDeps>(
 
   modelRefreshService.startAll()
 
-  platform.logger.info(`Craft Agent server listening on ${wsServer.protocol}://${rpcHost}:${wsServer.port}`)
+  platform.logger.info(`Orbit Agent server listening on ${wsServer.protocol}://${rpcHost}:${wsServer.port}`)
 
   let stopped = false
   const stop = async (): Promise<void> => {

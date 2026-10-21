@@ -1,7 +1,7 @@
 // =============================================================================
 // Protocol re-exports (channels, DTOs, events, wire types)
 // =============================================================================
-export * from '@craft-agent/shared/protocol'
+export * from '@orbit-agents/shared/protocol'
 
 // =============================================================================
 // Package re-exports (convenience for renderer imports)
@@ -20,17 +20,17 @@ import type {
   ContentBadge,
   ToolDisplayMeta,
   AnnotationV1,
-} from '@craft-agent/core/types';
+} from '@orbit-agents/core/types';
 
 // Mode types from dedicated subpath export (avoids pulling in SDK)
-import type { PermissionMode } from '@craft-agent/shared/agent/modes';
+import type { PermissionMode } from '@orbit-agents/shared/agent/modes';
 export type { PermissionMode };
-export { PERMISSION_MODE_CONFIG } from '@craft-agent/shared/agent/modes';
+export { PERMISSION_MODE_CONFIG } from '@orbit-agents/shared/agent/modes';
 
 // Thinking level types
-import type { ThinkingLevel } from '@craft-agent/shared/agent/thinking-levels';
+import type { ThinkingLevel } from '@orbit-agents/shared/agent/thinking-levels';
 export type { ThinkingLevel };
-export { THINKING_LEVELS, DEFAULT_THINKING_LEVEL } from '@craft-agent/shared/agent/thinking-levels';
+export { THINKING_LEVELS, DEFAULT_THINKING_LEVEL } from '@orbit-agents/shared/agent/thinking-levels';
 
 export type {
   CoreMessage as Message,
@@ -47,28 +47,28 @@ export type {
 };
 
 // Auth types for onboarding
-import type { AuthState, SetupNeeds } from '@craft-agent/shared/auth/types';
-import type { AuthType } from '@craft-agent/shared/config/types';
+import type { AuthState, SetupNeeds } from '@orbit-agents/shared/auth/types';
+import type { AuthType } from '@orbit-agents/shared/config/types';
 export type { AuthState, SetupNeeds, AuthType };
 
 // Credential health types
-import type { CredentialHealthStatus, CredentialHealthIssue, CredentialHealthIssueType } from '@craft-agent/shared/credentials/types';
+import type { CredentialHealthStatus, CredentialHealthIssue, CredentialHealthIssueType } from '@orbit-agents/shared/credentials/types';
 export type { CredentialHealthStatus, CredentialHealthIssue, CredentialHealthIssueType };
 
 // Source types for session source selection
-import type { LoadedSource, FolderSourceConfig, SourceConnectionStatus } from '@craft-agent/shared/sources/types';
+import type { LoadedSource, FolderSourceConfig, SourceConnectionStatus } from '@orbit-agents/shared/sources/types';
 export type { LoadedSource, FolderSourceConfig, SourceConnectionStatus };
 
 // Skill types
-import type { LoadedSkill, SkillMetadata } from '@craft-agent/shared/skills/types';
+import type { LoadedSkill, SkillMetadata } from '@orbit-agents/shared/skills/types';
 export type { LoadedSkill, SkillMetadata };
 
 // Resource bundle types (cross-workspace export/import)
-import type { ExportResourcesOptions, ExportResult, ResourceImportMode, ResourceBundle, ResourceImportResult } from '@craft-agent/shared/resources';
+import type { ExportResourcesOptions, ExportResult, ResourceImportMode, ResourceBundle, ResourceImportResult } from '@orbit-agents/shared/resources';
 export type { ExportResourcesOptions, ExportResult, ResourceImportMode, ResourceBundle, ResourceImportResult };
 
 // LLM connection types
-import type { LlmConnection, LlmConnectionWithStatus, LlmAuthType, LlmProviderType, NetworkProxySettings } from '@craft-agent/shared/config';
+import type { LlmConnection, LlmConnectionWithStatus, LlmAuthType, LlmProviderType, NetworkProxySettings } from '@orbit-agents/shared/config';
 export type { LlmConnection, LlmConnectionWithStatus, LlmAuthType, LlmProviderType, NetworkProxySettings };
 
 // =============================================================================
@@ -173,7 +173,7 @@ export interface TransportConnectionState {
 // =============================================================================
 
 // Re-import types for ElectronAPI
-import type { WorkspaceInfo, Workspace, SessionMetadata, StoredAttachment as StoredAttachmentType } from '@craft-agent/core/types';
+import type { WorkspaceInfo, Workspace, SessionMetadata, StoredAttachment as StoredAttachmentType } from '@orbit-agents/core/types';
 
 // Import protocol types used by ElectronAPI (they come through the `export *` above,
 // but we need them in scope for the interface definition)
@@ -221,7 +221,7 @@ import type {
   DirectoryListingResult,
   RemoteSessionTransferPayload,
   ImportRemoteSessionTransferResult,
-} from '@craft-agent/shared/protocol'
+} from '@orbit-agents/shared/protocol'
 
 export interface ElectronAPI {
   // Session management
@@ -260,9 +260,9 @@ export interface ElectronAPI {
   getServerHomeDir(): Promise<string>
 
   // Server mode configuration
-  getServerConfig(): Promise<import('@craft-agent/shared/config/server-config').ServerConfig>
-  setServerConfig(config: import('@craft-agent/shared/config/server-config').ServerConfig): Promise<void>
-  getServerStatus(): Promise<import('@craft-agent/shared/config/server-config').ServerStatus>
+  getServerConfig(): Promise<import('@orbit-agents/shared/config/server-config').ServerConfig>
+  setServerConfig(config: import('@orbit-agents/shared/config/server-config').ServerConfig): Promise<void>
+  getServerStatus(): Promise<import('@orbit-agents/shared/config/server-config').ServerStatus>
 
   // App lifecycle
   relaunchApp(): Promise<void>
@@ -460,10 +460,10 @@ export interface ElectronAPI {
   writePreferences(content: string): Promise<{ success: boolean; error?: string }>
 
   // Session Drafts (persisted composer state — text + attachment refs)
-  getDraft(sessionId: string): Promise<import('@craft-agent/shared/config').SessionDraft | null>
-  setDraft(sessionId: string, draft: import('@craft-agent/shared/config').SessionDraft): Promise<void>
+  getDraft(sessionId: string): Promise<import('@orbit-agents/shared/config').SessionDraft | null>
+  setDraft(sessionId: string, draft: import('@orbit-agents/shared/config').SessionDraft): Promise<void>
   deleteDraft(sessionId: string): Promise<void>
-  getAllDrafts(): Promise<Record<string, import('@craft-agent/shared/config').SessionDraft>>
+  getAllDrafts(): Promise<Record<string, import('@orbit-agents/shared/config').SessionDraft>>
 
   // Session Info Panel
   getSessionFiles(sessionId: string): Promise<SessionFile[]>
@@ -479,9 +479,9 @@ export interface ElectronAPI {
   deleteSource(workspaceId: string, sourceSlug: string): Promise<void>
   startSourceOAuth(workspaceId: string, sourceSlug: string): Promise<{ success: boolean; error?: string }>
   saveSourceCredentials(workspaceId: string, sourceSlug: string, credential: string): Promise<void>
-  getSourcePermissionsConfig(workspaceId: string, sourceSlug: string): Promise<import('@craft-agent/shared/agent').PermissionsConfigFile | null>
-  getWorkspacePermissionsConfig(workspaceId: string): Promise<import('@craft-agent/shared/agent').PermissionsConfigFile | null>
-  getDefaultPermissionsConfig(): Promise<{ config: import('@craft-agent/shared/agent').PermissionsConfigFile | null; path: string }>
+  getSourcePermissionsConfig(workspaceId: string, sourceSlug: string): Promise<import('@orbit-agents/shared/agent').PermissionsConfigFile | null>
+  getWorkspacePermissionsConfig(workspaceId: string): Promise<import('@orbit-agents/shared/agent').PermissionsConfigFile | null>
+  getDefaultPermissionsConfig(): Promise<{ config: import('@orbit-agents/shared/agent').PermissionsConfigFile | null; path: string }>
   getMcpTools(workspaceId: string, sourceSlug: string): Promise<McpToolsResult>
 
   // OAuth (server-owned credentials, client-orchestrated flow)
@@ -508,13 +508,13 @@ export interface ElectronAPI {
   onSkillsChanged(callback: (workspaceId: string, skills: LoadedSkill[]) => void): () => void
 
   // Statuses (workspace-scoped)
-  listStatuses(workspaceId: string): Promise<import('@craft-agent/shared/statuses').StatusConfig[]>
+  listStatuses(workspaceId: string): Promise<import('@orbit-agents/shared/statuses').StatusConfig[]>
   reorderStatuses(workspaceId: string, orderedIds: string[]): Promise<void>
   onStatusesChanged(callback: (workspaceId: string) => void): () => void
 
   // Labels (workspace-scoped)
-  listLabels(workspaceId: string): Promise<import('@craft-agent/shared/labels').LabelConfig[]>
-  createLabel(workspaceId: string, input: import('@craft-agent/shared/labels').CreateLabelInput): Promise<import('@craft-agent/shared/labels').LabelConfig>
+  listLabels(workspaceId: string): Promise<import('@orbit-agents/shared/labels').LabelConfig[]>
+  createLabel(workspaceId: string, input: import('@orbit-agents/shared/labels').CreateLabelInput): Promise<import('@orbit-agents/shared/labels').LabelConfig>
   deleteLabel(workspaceId: string, labelId: string): Promise<{ stripped: number }>
   onLabelsChanged(callback: (workspaceId: string) => void): () => void
 
@@ -522,8 +522,8 @@ export interface ElectronAPI {
   onLlmConnectionsChanged(callback: () => void): () => void
 
   // Views (workspace-scoped, stored in views.json)
-  listViews(workspaceId: string): Promise<import('@craft-agent/shared/views').ViewConfig[]>
-  saveViews(workspaceId: string, views: import('@craft-agent/shared/views').ViewConfig[]): Promise<void>
+  listViews(workspaceId: string): Promise<import('@orbit-agents/shared/views').ViewConfig[]>
+  saveViews(workspaceId: string, views: import('@orbit-agents/shared/views').ViewConfig[]): Promise<void>
 
   // Generic workspace image loading/saving
   readWorkspaceImage(workspaceId: string, relativePath: string): Promise<string>
@@ -662,11 +662,11 @@ export interface ElectronAPI {
   // Projects (workspace-scoped)
   getProjects(workspaceId: string): Promise<unknown>
   getProject(workspaceId: string, projectIdOrSlug: string): Promise<unknown | null>
-  createProject(workspaceId: string, input: import('@craft-agent/shared/projects/types').CreateProjectInput): Promise<import('@craft-agent/shared/projects/types').ProjectConfig>
-  updateProject(workspaceId: string, projectSlug: string, patch: Partial<Omit<import('@craft-agent/shared/projects/types').ProjectConfig, 'id' | 'slug' | 'createdAt'>>): Promise<import('@craft-agent/shared/projects/types').ProjectConfig>
+  createProject(workspaceId: string, input: import('@orbit-agents/shared/projects/types').CreateProjectInput): Promise<import('@orbit-agents/shared/projects/types').ProjectConfig>
+  updateProject(workspaceId: string, projectSlug: string, patch: Partial<Omit<import('@orbit-agents/shared/projects/types').ProjectConfig, 'id' | 'slug' | 'createdAt'>>): Promise<import('@orbit-agents/shared/projects/types').ProjectConfig>
   deleteProject(workspaceId: string, projectSlug: string): Promise<void>
   listProjectAssets(workspaceId: string, projectSlug: string): Promise<unknown>
-  uploadProjectAsset(workspaceId: string, projectSlug: string, input: { filename: string; base64?: string; text?: string; sourcePath?: string }): Promise<import('@craft-agent/shared/projects/types').ProjectAsset>
+  uploadProjectAsset(workspaceId: string, projectSlug: string, input: { filename: string; base64?: string; text?: string; sourcePath?: string }): Promise<import('@orbit-agents/shared/projects/types').ProjectAsset>
   deleteProjectAsset(workspaceId: string, projectSlug: string, filename: string): Promise<void>
   onProjectsChanged(callback: (workspaceId: string, projects: unknown) => void): () => void
 
@@ -751,7 +751,7 @@ export interface MessagingPlatformRuntimeInfo {
 
 /**
  * Workspace-level access policy for a messaging platform.
- * Mirrors the canonical type in `@craft-agent/messaging-gateway`.
+ * Mirrors the canonical type in `@orbit-agents/messaging-gateway`.
  */
 export type MessagingPlatformAccessMode = 'open' | 'owner-only'
 

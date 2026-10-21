@@ -5,8 +5,8 @@ import {
   validateModelList,
   validateSetupTestInput,
   BUILT_IN_CONNECTION_TEMPLATES,
-} from '@craft-agent/server-core/domain'
-import type { ModelDefinition } from '@craft-agent/shared/config/models'
+} from '@orbit-agents/server-core/domain'
+import type { ModelDefinition } from '@orbit-agents/shared/config/models'
 
 // ============================================================
 // validateModelList
