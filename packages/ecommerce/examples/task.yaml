@@ -1,0 +1,50 @@
+id: commerce-investigation
+title: 库存、订单和促销联合调查
+goal: 调查 SKU-001 的订单下降，输出带证据的结论，证据不足时降级，所有写操作等待人工。
+acceptance_criteria: 所有结论引用可验证证据；禁止把相关性当作唯一原因；不得由 Agent 审批；最终返回复核结论和不确定项。
+runner: conduct
+defaults:
+  permissionMode: safe
+sources: [commerce-catalog, commerce-inventory, commerce-ads, commerce-reviewer]
+skills: [commerce-investigation]
+max_parallel: 3
+max_iterations: 1
+token_budget: 24000
+nodes:
+  - id: catalog
+    sources: [commerce-catalog]
+    prompt: >-
+      查询 SKU-001 在 2026-10-29T00:00:00Z 到 2026-10-30T00:00:00Z 的商品、订单、销售和促销。
+      返回 JSON，包含角色、snapshotId、evidenceIds、逐条结论和 uncertainties。只描述证据支持的事实。
+  - id: inventory
+    sources: [commerce-inventory]
+    prompt: >-
+      查询相同 SKU 和时间窗的可售库存及订单。库存为时点快照，不能直接声称证明整个统计期缺货。
+      返回结构化事实、证据 ID、统计口径及不确定项。
+  - id: ads
+    sources: [commerce-ads]
+    prompt: >-
+      查询相同 SKU 和时间窗的广告及销售，说明预算约束。不调预算，不修改状态。
+      返回结构化事实、证据 ID、统计口径及不确定项。
+  - id: reviewer
+    sources: [commerce-reviewer]
+    depends_on: [catalog, inventory, ads]
+    inputs:
+      catalog: '${nodes.catalog.output}'
+      inventory: '${nodes.inventory.output}'
+      ads: '${nodes.ads.output}'
+    prompt: >-
+      你是独立只读复核员。重新读取引用证据并用 review_report 复核。
+      对比三个报告的 SKU、币种、时点、snapshotId 和口径；冲突不能简单投票。
+      证据缺失则列出待补材料，冲突无法解除则升级人工。将明确事实和推测分开。
+      返回 summary、evidenceIds、conclusions 和 uncertainties。不得创建或执行经营操作。
+  - id: synthesis
+    sources: [commerce-reviewer]
+    depends_on: [reviewer]
+    inputs:
+      review: '${nodes.reviewer.output}'
+    prompt: >-
+      汇总只读复核结果；不确定原因必须保留。输出经营建议、证据列表、风险和人工待办。
+      缺少对照实验或时序证据时，不声称单一因果关系。禁止任何写操作。
+outputs:
+  report: '${nodes.synthesis.output}'

@@ -374,7 +374,9 @@ class ActiveRun {
         // Inherit the orchestrator's task number (task::N) so the whole run filters as one task.
         applyTaskLabel: true,
         // Task-level sources become the child's enabled-sources set (spec omitted → workspace default).
-        ...(this.spec.sources?.length ? { enabledSourceSlugs: this.spec.sources } : {}),
+        ...((node.sources ?? this.spec.sources) !== undefined
+          ? { enabledSourceSlugs: node.sources ?? this.spec.sources }
+          : {}),
         projectId: this.spec.project,
         ...(cwd ? { workingDirectory: cwd } : {}),
         sessionStatus: RUNNING_STATUS,

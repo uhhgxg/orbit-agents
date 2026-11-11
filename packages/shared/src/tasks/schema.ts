@@ -146,6 +146,8 @@ const TaskNodeObject = z.object({
   llmConnection: z.string().min(1).optional(),
   permissionMode: z.enum(PERMISSION_MODES).optional(),
   labels: z.array(z.string()).optional(),
+  /** A node may narrow the task-level source set; [] explicitly disables all sources. */
+  sources: z.array(z.string().min(1)).optional(),
   status: z.string().optional(),
 
   // Edges + data flow.
@@ -228,6 +230,13 @@ export const TaskSpecSchema = z
         });
       }
       seen.add(node.id);
+      if (spec.sources && node.sources?.some(source => !spec.sources!.includes(source))) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `Node "${node.id}" sources must be a subset of task sources`,
+          path: ['nodes', i, 'sources'],
+        });
+      }
       // v1 executes session nodes; they must carry a prompt.
       if (node.kind === 'session' && (!node.prompt || node.prompt.trim() === '')) {
         ctx.addIssue({

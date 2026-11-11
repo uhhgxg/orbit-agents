@@ -209,6 +209,16 @@ describe('TaskRunner (Conductor)', () => {
     expect(host.created.find((c) => c.options.name === 'b')?.options.permissionMode).toBe('ask')
   })
 
+  it('dispatches a narrowed node source list and preserves an explicit empty set', async () => {
+    saveTaskSpec(root, specOf({ id: 'source-scope', title: 'Scope', goal: 'read', sources: ['catalog', 'inventory'],
+      nodes: [{ id: 'a', prompt: 'read', sources: ['catalog'] }, { id: 'b', prompt: 'no sources', sources: [] }, { id: 'c', prompt: 'inherit' }] }));
+    makeRunner().run('source-scope', { runId: 'r1' });
+    await tick();
+    expect(host.created.find(c => c.options.name === 'a')?.options.enabledSourceSlugs).toEqual(['catalog']);
+    expect(host.created.find(c => c.options.name === 'b')?.options.enabledSourceSlugs).toEqual([]);
+    expect(host.created.find(c => c.options.name === 'c')?.options.enabledSourceSlugs).toEqual(['catalog', 'inventory']);
+  });
+
   it('defaults an omitted permission mode to allow-all (unattended-safe), not undefined/ask', async () => {
     // A hand-authored spec that sets no permission mode must NOT fall through to the workspace default
     // (which could be `ask` → the unattended child would hang). The runner supplies an explicit default.
